@@ -7,8 +7,14 @@ public class Intro : MonoBehaviour
 {
     [SerializeField] private float introTime;
 
+    private SoundManager soundManager;
+    private void Awake()
+    {
+        soundManager = SoundManager.Instant;
+    }
     private void Start()
     {
+        soundManager.PlaySound((int)Constant.SOUND.BlueSea, 0.5f);
         this.transform.DOMoveX(0, introTime).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             StartCoroutine(SwitchScene());
@@ -17,6 +23,11 @@ public class Intro : MonoBehaviour
     private IEnumerator SwitchScene()
     {
         yield return new WaitForSeconds(0.75f);
-        Camera.main.transform.DOMoveY(0, 1f).SetEase(Ease.InOutSine);
+        soundManager.PlaySound((int)Constant.SOUND.UnderwaterLoop, 1f);
+        Camera.main.transform.DOMoveY(0, 1f).SetEase(Ease.InOutSine).OnComplete(()=> {
+            
+        });
+        yield return new WaitForSeconds(1f);
+        soundManager.PlaySound((int)Constant.SOUND.Female, 1f);
     }
 }
