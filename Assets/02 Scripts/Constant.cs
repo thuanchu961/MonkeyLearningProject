@@ -7,15 +7,24 @@ public class Constant
     public enum SOUND
     {
         BlueSea, // tieng song nuoc
-        UnderwaterLoop, //tieng nuoc
-        Female,
-        Male,
+        UnderwaterLoop, // tieng nuoc
+        Female, // tieng doc de bai giong nu
+        Male, // tieng doc de bai giong nam
+        Hook,
+        Victory,
+        Hooray
     }
     public enum MUSIC
     {
 
     }
-}   
+    public enum TAG
+    {
+        Item,
+        GameManager
+    }
 
-    
+}
+
+
 
