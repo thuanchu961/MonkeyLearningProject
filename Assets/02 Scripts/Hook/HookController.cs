@@ -14,6 +14,7 @@ public class HookController : MonoBehaviour
     private Camera mainCamera;
     private SoundManager soundManager;
     private GameManager gameManager;
+    private UiManager uiManager;
     private float timer = 0.0f;
     private ItemPickUp hookedItem;
     private void Awake()
@@ -21,6 +22,7 @@ public class HookController : MonoBehaviour
         mainCamera = Camera.main;
         soundManager = SoundManager.Instant;
         gameManager = GameManager.Instant;
+        uiManager = UiManager.Instant;
     }
     private void Update()
     {
@@ -81,13 +83,14 @@ public class HookController : MonoBehaviour
         timer = 0.0f;
         yield return new WaitForSeconds(0.25f);
         soundManager.PlayWord();
+        uiManager.ShowWordText();
         bool isPlaying = true;
         while (isPlaying)
         {
             isPlaying = soundManager.IsWordPlaying();
             yield return null;
         }
-
+        
         // Kéo vật phẩm ra khỏi màn hình
         yield return new WaitForSeconds(0.4f);
         // Lấy chiều cao và chiều rộng của camera trong không gian thế giới
@@ -112,6 +115,7 @@ public class HookController : MonoBehaviour
         {
             this.gameObject.SetActive(false);
             gameManager.Victory();
+            //gameManager.SetGameState(GameState.Victory);
             yield break;
         }
 

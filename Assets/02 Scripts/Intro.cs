@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using DG.Tweening;
 
 public class Intro : MonoBehaviour
@@ -11,14 +12,20 @@ public class Intro : MonoBehaviour
     private void Awake()
     {
         soundManager = SoundManager.Instant;
+        GameManager.OnGameStateChanged += IntroGame;
     }
     private void Start()
+    {
+        //IntroGame();
+    }
+    public void IntroGame()
     {
         soundManager.PlaySound((int)Constant.SOUND.BlueSea, 0.5f);
         this.transform.DOMoveX(0, introTime).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             StartCoroutine(SwitchScene());
         });
+        GameManager.OnGameStateChanged -= IntroGame;
     }
     private IEnumerator SwitchScene()
     {

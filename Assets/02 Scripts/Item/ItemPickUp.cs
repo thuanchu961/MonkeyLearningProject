@@ -19,6 +19,7 @@ public class ItemPickUp : Item, IPointerClickHandler
         Debug.Log("User click into " + gameObject.name);
         gameManager.SendPositionToHook(transform.position);
         gameManager.SendAudioClip(clip);
+        gameManager.SendWord(itemType.ToString());
         gameManager.isHooking = true;
         gameManager.onTap = true;
     }

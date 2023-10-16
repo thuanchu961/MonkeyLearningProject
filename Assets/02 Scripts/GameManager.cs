@@ -1,44 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
+using System;
+public enum GameState
+{
+    Intro,
+    GamePlay,
+    Victory
+}
 public class GameManager : Singleton<GameManager>
 {
+    public static event Action OnGameStateChanged;
+    public static UnityEvent OnGameWin;
     [Header("References")]
     [SerializeField] private HookController hookController;
     [SerializeField] private BackgroundController bgController;
     [SerializeField] private CameraController camController;
     [SerializeField] private BoatController boatController;
     [SerializeField] private SoundManager soundManager;
+    [SerializeField] private UiManager uiManager;
     [SerializeField] private int maxItems;
-    private List<ItemPickUp> lists = new List<ItemPickUp>();
-
+    private List<ItemPickUp> lists = new();
     public bool isGameWin, isHooking, onTap;
-    public enum GameState
-    {
-        Intro,
-        GamePlay,
-        Victory
-    }
+    
     public GameState currentState = GameState.Intro;
     private void Awake()
     {
         soundManager = SoundManager.Instant;
+        uiManager = UiManager.Instant;
         bgController.ChangeBackground(isGameWin);
+        //OnGameWin.AddListener(Victory);
     }
     private void Start()
     {
-        
+        SetGameState(currentState);
+       
     }
-    public void SetState()
+    public void SetGameState(GameState newState)
     {
-        switch (currentState)
+        currentState = newState;
+        switch (newState)
         {
             case GameState.Intro:
+                OnGameStateChanged?.Invoke();
                 break;
             case GameState.GamePlay:
                 break;
             case GameState.Victory:
+                //OnGameWin.Invoke();
                 break;
         }
     }
@@ -49,6 +59,10 @@ public class GameManager : Singleton<GameManager>
     public void SendAudioClip(AudioClip clip)
     {
         soundManager.ReceiveAudioClip(clip);
+    }
+    public void SendWord(string word)
+    {
+        uiManager.ReceiveWord(word);
     }
     public void AddToList(ItemPickUp item)
     {
@@ -65,5 +79,7 @@ public class GameManager : Singleton<GameManager>
         bgController.ChangeBackground(isGameWin);
         camController.MoveCamera(false);
         boatController.Ending();
+        uiManager.ShowPopupVictory();
+        //OnGameWin.RemoveListener(Victory);
     }
 }
