@@ -5,20 +5,19 @@ using UnityEngine;
 public class Fish : Animal
 {
     [SerializeField] private bool isRight; 
-    [SerializeField] private float limitX;
     private float edgeRightX, edgeLeftX;
     protected override void Awake()
     {
         base.Awake();
-        float cameraWidth = mainCamera.orthographicSize * 2 * mainCamera.aspect;
-        edgeLeftX = mainCamera.transform.position.x - cameraWidth / 2f;
-        edgeRightX = mainCamera.transform.position.x + cameraWidth / 2f;
+        float cameraWidth = MainCamera.orthographicSize * 2 * MainCamera.aspect;
+        edgeLeftX = MainCamera.transform.position.x - cameraWidth / 2f;
+        edgeRightX = MainCamera.transform.position.x + cameraWidth / 2f;
         if (transform.position.x >= 0)
         {
             isRight = true;
         }
     }
-    protected override void Moving()
+    public override void Move()
     {
         if (isRight ? (transform.position.x <= edgeLeftX - 1) : (transform.position.x >= edgeRightX + 1))
         {
