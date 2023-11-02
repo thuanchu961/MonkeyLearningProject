@@ -23,7 +23,18 @@ public class Constant
         Item,
         GameManager
     }
-
+    public enum HOOK_STATE
+    {
+        Open,
+        Close,
+        Waiting
+    }
+    public enum BOAT_STATE
+    {
+        Start,
+        Ending,
+        Fade
+    }
 }
 
 

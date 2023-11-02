@@ -2960,7 +2960,8 @@ GameObject:
   - component: {fileID: 713852675}
   - component: {fileID: 713852674}
   - component: {fileID: 713852673}
-  - component: {fileID: 713852678}
+  - component: {fileID: 713852679}
+  - component: {fileID: 713852680}
   - component: {fileID: 713852677}
   - component: {fileID: 713852672}
   - component: {fileID: 713852676}
@@ -3104,7 +3105,19 @@ MonoBehaviour:
   Start: {fileID: 11400000, guid: f7e959b4f249eda48bb06df446d879fc, type: 2}
   Ending: {fileID: 11400000, guid: 54af170354c54dc449deee6bb6d757d3, type: 2}
   Fade: {fileID: 11400000, guid: 906e4757338eba0498a25dfd3e2b4925, type: 2}
---- !u!114 &713852678
+--- !u!114 &713852679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713852671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 847c200b533daaf48bce9f5e5ad0c0b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &713852680
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3116,6 +3129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f303ac34c99494e45bfd02c739d323f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 10
 --- !u!4 &750563063 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1899993618391240037, guid: a0c7ba72a96aca34fa5c39f2ba660802, type: 3}
@@ -4879,10 +4893,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62140da458c70a54d9c8f0998b9b4807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hookController: {fileID: 1377628202}
+  hookController: {fileID: 1377628206}
   bgController: {fileID: 1702723486}
   camController: {fileID: 1892861265}
-  boatController: {fileID: 713852678}
+  boatController: {fileID: 713852679}
   soundManager: {fileID: 0}
   uiManager: {fileID: 0}
   maxItems: 4
@@ -5602,6 +5616,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1377628203}
+  - component: {fileID: 1377628206}
   - component: {fileID: 1377628202}
   - component: {fileID: 1377628204}
   - component: {fileID: 1377628205}
@@ -5624,7 +5639,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31d65985b198fd74e81b6343e78024e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hookAnimator: {fileID: 609768997}
   moveSpeed: 5
   offset: 5
   layerMask:
@@ -5684,6 +5698,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1377628206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377628201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b902f4d9f51984492805341f6c1cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1384505902
 GameObject:
   m_ObjectHideFlags: 0
@@ -7605,7 +7631,6 @@ GameObject:
   - component: {fileID: 1892861261}
   - component: {fileID: 1892861264}
   - component: {fileID: 1892861265}
-  - component: {fileID: 1892861266}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7707,20 +7732,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f33d3d61f500694f933dc04960712f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1892861266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1892861260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc2dc50967932d64da559ab1ae4f09c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetAspectRatio: 1.7777778
-  orthoSize: 5
 --- !u!1 &1983723899
 GameObject:
   m_ObjectHideFlags: 0

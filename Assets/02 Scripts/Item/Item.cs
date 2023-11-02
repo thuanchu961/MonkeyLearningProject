@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour  //ScriptableObject
+public abstract class Item : MonoBehaviour  //ScriptableObject
 {
     [SerializeField] protected ItemType itemType;
     [SerializeField] protected AudioClip clip;

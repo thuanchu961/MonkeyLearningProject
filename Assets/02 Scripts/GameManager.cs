@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,10 +14,10 @@ public class GameManager : Singleton<GameManager>
     public static event Action OnGameStateChanged;
     public static UnityEvent OnGameWin;
     [Header("References")]
-    [SerializeField] private HookController hookController;
+    [SerializeField] private HookManager hookController;
     [SerializeField] private BackgroundController bgController;
     [SerializeField] private CameraController camController;
-    [SerializeField] private BoatController boatController;
+    [SerializeField] private BoatManager boatController;
     [SerializeField] private SoundManager soundManager;
     [SerializeField] private UiManager uiManager;
     [SerializeField] private int maxItems;
@@ -25,6 +25,7 @@ public class GameManager : Singleton<GameManager>
     public bool isGameWin, isHooking, onTap;
     
     public GameState currentState = GameState.Intro;
+
     private void Awake()
     {
         soundManager = SoundManager.Instant;
@@ -34,8 +35,7 @@ public class GameManager : Singleton<GameManager>
     }
     private void Start()
     {
-        SetGameState(currentState);
-       
+        SetGameState(currentState);     
     }
     public void SetGameState(GameState newState)
     {
@@ -77,9 +77,11 @@ public class GameManager : Singleton<GameManager>
     public void Victory()
     {
         bgController.ChangeBackground(isGameWin);
-        camController.MoveCamera(false);
-        boatController.Ending();
+
+        IMoveCamera cam = new CameraController();
+        cam.MoveCamera(new Vector3(0,10,0));
+
+        boatController.BoatEnding();
         uiManager.ShowPopupVictory();
-        //OnGameWin.RemoveListener(Victory);
     }
 }

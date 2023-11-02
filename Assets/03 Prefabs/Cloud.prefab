@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1899993618391240037}
   - component: {fileID: 1899993618391240042}
-  - component: {fileID: 1899993618391240043}
+  - component: {fileID: 4867419728458518415}
   m_Layer: 0
   m_Name: Cloud
   m_TagString: Untagged
@@ -117,7 +117,7 @@ Transform:
   - {fileID: 1899993619072724171}
   - {fileID: 1899993618030902923}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1899993618391240042
 SpriteRenderer:
@@ -171,7 +171,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1899993618391240043
+--- !u!114 &4867419728458518415
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1899993618391240036}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bca300a738d98da4f8c675a542ae59b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 52166dc097fe70a47aab10f14867e469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   goToRight: 1

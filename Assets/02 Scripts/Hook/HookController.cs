@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Spine.Unity;
-public class HookController : MonoBehaviour
+public class HookController : MonoBehaviour, IMovable
 {
-    [SerializeField] private HookAnimator hookAnimator;
+    [SerializeField] private ISetHookState hookAnimator;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float offset;
     [SerializeField] private LayerMask layerMask;
@@ -23,20 +22,12 @@ public class HookController : MonoBehaviour
         soundManager = SoundManager.Instant;
         gameManager = GameManager.Instant;
         uiManager = UiManager.Instant;
+        hookAnimator = GetComponent<ISetHookState>();
     }
     private void Update()
     {
         if (targetPosition == Vector3.zero)
             return;
-
-        //newPosition = new Vector3(targetPosition.x, transform.position.y, transform.position.z);
-        //rigi.velocity = moveSpeed * Time.deltaTime * (newPosition - transform.position).normalized;
-        //if (Vector3.Distance(transform.position, newPosition) < 0.1f)
-        //{
-        //    transform.position = newPosition;
-        //    prevPosition = newPosition;
-        //    StartCoroutine(PickUp());
-        //}
     }
     private IEnumerator MoveSequence()
     {
@@ -48,7 +39,7 @@ public class HookController : MonoBehaviour
         // Di chuyển đến vị trí B
         yield return new WaitForSeconds(0.2f);
         newPosition = new Vector3(transform.position.x, targetPosition.y, transform.position.z);
-        hookAnimator.SetState(HookAnimator.STATE.Open);
+        hookAnimator.SetHookState(Constant.HOOK_STATE.Open);
         soundManager.PlaySound((int)Constant.SOUND.Hook, 1f);
         while (timer < 1f)
         {
@@ -65,7 +56,7 @@ public class HookController : MonoBehaviour
             hookedItem.transform.SetParent(transform);
             hookedItem.transform.localPosition = Vector3.zero;
         }
-        hookAnimator.SetState(HookAnimator.STATE.Close);
+        hookAnimator.SetHookState(Constant.HOOK_STATE.Close);
 
         // Di chuyển đến vị trí giữa màn hình
         yield return new WaitForSeconds(0.25f);
@@ -109,9 +100,9 @@ public class HookController : MonoBehaviour
         }
         timer = 0.0f;
         gameManager.AddToList(hookedItem);
-        hookAnimator.SetState(HookAnimator.STATE.Waiting);
+        hookAnimator.SetHookState(Constant.HOOK_STATE.Waiting);
 
-        if(gameManager.isGameWin)
+        if (gameManager.isGameWin)
         {
             this.gameObject.SetActive(false);
             gameManager.Victory();
@@ -143,14 +134,14 @@ public class HookController : MonoBehaviour
             yield return null;
         }
     }
-    public void SetTarget(Vector3 itemPosition)
-    {
-        targetPosition = itemPosition;
-        StartCoroutine(MoveSequence());
-    }
-    public void ResetTarget()
+    private void ResetTarget()
     {
         targetPosition = Vector3.zero;
         gameManager.isHooking = false;
+    }
+    public void Move(Vector3 targetPosition)
+    {
+        this.targetPosition = targetPosition;
+        StartCoroutine(MoveSequence());
     }
 }

@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class CameraController : MonoBehaviour, IMovable
+public class CameraController : MonoBehaviour, IMoveCamera, IScaleCamera
 {
-    public void Move(Vector3 targetPosition)
+    private void Start()
     {
-        transform.DOMoveY(targetPosition.y, 1f).SetEase(Ease.InOutSine).OnComplete(() => {
-
-        });
+        Scale();
+    }
+    public void MoveCamera(Vector3 targetPosition)
+    {
+        IMoveCamera moveCamera = new MovementController(); // => D
+        moveCamera.MoveCamera(targetPosition);
     }
 
-    public void MoveCamera(bool isDown)
+    public void Scale()
     {
-        transform.DOMoveY((isDown ? 0 : 10), 1f).SetEase(Ease.InOutSine).OnComplete(()=> { 
-            
-        });
+        IScaleCamera scaleCamera = new ScaleCamera(); // => D
+        scaleCamera.Scale();
     }
 }

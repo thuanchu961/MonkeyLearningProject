@@ -3,38 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
 
-public class BoatAnimator : MonoBehaviour
+public class BoatAnimator : AbstractAnimator, ISetBoatState
 {
     [SerializeField] private SkeletonAnimation skeletonAnimation;
     [SerializeField] private AnimationReferenceAsset Start, Ending, Fade;
-    public enum STATE
+    private Constant.BOAT_STATE currentState = Constant.BOAT_STATE.Start;
+    private IAnimationHandler animationHandler;
+    private void Awake()
     {
-        Start,
-        Ending,
-        Fade
+        animationHandler = new AnimationHandler(skeletonAnimation);
     }
-    private STATE currentState = STATE.Start;
-    private void SetAnimation(AnimationReferenceAsset animation, bool loop)
+    public override void SetAnimation(AnimationReferenceAsset animation, bool loop)
     {
-        skeletonAnimation.AnimationState.SetAnimation(0, animation, loop);
+        animationHandler.SetAnimation(animation, loop);
     }
-    public void SetState(STATE state)
+    public void SetBoatState(Constant.BOAT_STATE newState)
     {
-        if (currentState == state)
+        if (currentState == newState)
             return;
 
-        switch (state)
+        switch (newState)
         {
-            case STATE.Start:
-                currentState = STATE.Start;
+            case Constant.BOAT_STATE.Start:
+                currentState = Constant.BOAT_STATE.Start;
                 SetAnimation(Start, true);
                 break;
-            case STATE.Ending:
-                currentState = STATE.Ending;
+            case Constant.BOAT_STATE.Ending:
+                currentState = Constant.BOAT_STATE.Ending;
                 SetAnimation(Ending, false);
                 break;
-            case STATE.Fade:
-                currentState = STATE.Fade;
+            case Constant.BOAT_STATE.Fade:
+                currentState = Constant.BOAT_STATE.Fade;
                 SetAnimation(Fade, true);
                 break;
         }
